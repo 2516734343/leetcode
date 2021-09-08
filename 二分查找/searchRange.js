@@ -30,34 +30,34 @@
  * @return {number[]}
  */
 var searchRange = function (nums, target) {
-  var left = 0, right = nums.length - 1, mid = Math.floor((left + right) / 2), le = -1;
-  while (left + 1 === right) {
+  let left = 0, right = nums.length - 1, mid = Math.floor((left + right) / 2);
+  while (left + 1 < right) {
+    mid = Math.floor((left + right) / 2)
     if (nums[mid] < target) {
+      left = mid;
+    } else if (nums[mid] > target) {
       right = mid;
     } else {
-      left = mid;
+      let l = mid, r = mid;
+      while (target === nums[--l]) {
+        continue;
+      }
+      while (target === nums[++r]) {
+        continue;
+      }
+      return [++l, --r];
     }
   }
-  if (nums[left] === target) {
-    le = left;
-  } else if (nums[right] === target) {
-    le = right;
-  } else {
-    return [-1, -1]
+  if (target === nums[left] && target === nums[right]) {
+    return [left, right];
   }
-  var left = 0, right = nums.length - 1, mid = Math.floor((left + right) / 2);
-  while (left + 1 === right) {
-    if (nums[mid] > target) {
-      right = mid;
-    } else {
-      left = mid;
-    }
+  if (target === nums[left]) {
+    return [left, left];
   }
-  if (nums[right] === target) {
-    return [le, right];
-  } else {
-    return [le, left];
+  if (target === nums[right]) {
+    return [right, right];
   }
+  return [-1, -1]
 };
 
 console.log(searchRange([1, 2, 3, 4, 5, 5, 6], 5));
