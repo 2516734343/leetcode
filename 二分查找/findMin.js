@@ -30,9 +30,9 @@ var findMin = function (nums) {
   let mid = Math.floor((left + right) / 2);
   while (left < right) {
     mid = Math.floor((left + right) / 2);
-    if (nums[mid] < nums[right]) { // 在右边找
+    if (nums[mid] < nums[right]) { // 在左边找
       right = mid;
-    } else { // 在左边找
+    } else { // 在右边找
       left = mid + 1;
     }
   }
