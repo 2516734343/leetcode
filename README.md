@@ -78,3 +78,124 @@ BST 是⼀种特殊的⼆叉树，它的两个主要特点：
 - 230. BST 第 K ⼩的元素（中等）
 - 538. ⼆叉搜索树转化累加树（中等）
 - 1038. BST 转累加树（中等）
+- 530. 二叉树的最小差值。
+- 面试题 04.02 最小高度树。
+- 530. 二叉搜索树的最小绝对差
+- 剑指 Offer 54. 二叉搜索树的第 k 大节点
+
+---
+
+## 二叉树题目类型
+
+### 遍历
+
+> 二叉树的前中后三种遍历方式，根据前中遍历还原二叉树，根据中后遍历还原二叉树。二叉树的题目大部分思路主要是这三种遍历，搞清楚用哪一种遍历方式，先写出大概框架。
+
+1. 94.二叉树的中序遍历
+
+### 序列化和反序列化
+
+### 二叉树对称/镜像/相同
+
+> 思路： 都是对比左右子树节点。
+
+1. 100.相同的树
+
+```js
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+  if (p === null && q === null) {
+    return true;
+  }
+  if (p === null || q === null) {
+    return false;
+  }
+  if (p.val != q.val) {
+    return false;
+  }
+
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+```
+
+2. 101.对称二叉树
+
+```js
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ *
+ */
+var isSymmetric = function (root) {
+  if (!root) return true;
+  return symmetric(root.left, root.right);
+
+  function symmetric(node1, node2) {
+    if (node1 === null && node2 === null) {
+      return true;
+    }
+    if (node1 === null || node2 === null) {
+      return false;
+    }
+
+    if (node1.val !== node2.val) {
+      return false;
+    }
+    return (
+      symmetric(node1.left, node2.right) && symmetric(node1.right, node2.left)
+    );
+  }
+};
+```
+
+3. 剑指 Offer 27. 二叉树的镜像
+4. 剑指 Offer 28. 对称的二叉树
+
+### 二叉树深度系列
+
+1. 检查平衡性。
+2. 求二叉树的深度。
+3. 110.平衡二叉树。
+4. 111.二叉树的最小深度。
+5. 剑指 Offer 55 - I. 二叉树的深度
+
+### 公共祖先问题
+
+> 思路：
+>
+> > 对于二叉搜索树,思路主要是利用左小右大的特点。给定两个节点 p,q
+> >
+> > > 1.  如果 p,q 都比当前节点小，那么应该在左子树里寻找。
+> > > 2.  如果 p,q 都比当前节点大，那么应该在右子树里寻找。
+> > > 3.  如果 p,q 一个比当前节点大，一个比当前节点小，那么当前节点就是他们最近的公共祖先。
+> >
+> >     对于一般的二叉树，
+
+1. 235.二叉搜索树的最近公共祖先
+
+```js
+var lowestCommonAncestor = function (root, p, q) {
+  if (!root) return root;
+  if (p.val > q.val) {
+    // 这样做是要保证，参数二要始终小于参数三。
+    return lowestCommonAncestor(root, q, p);
+  }
+  if (root.val >= p.val && root.val <= q.val) {
+    // 找到了
+    return root;
+  }
+  if (root.val > q.val) {
+    //. 在左子树中找
+    return lowestCommonAncestor(root.left, p, q);
+  } else {
+    // 在右子树找
+    return lowestCommonAncestor(root.right, p, q);
+  }
+};
+```
+
+2. 236.二叉树的最近公共祖先
