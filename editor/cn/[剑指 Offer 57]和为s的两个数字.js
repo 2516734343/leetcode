@@ -36,7 +36,6 @@ var twoSum = function(nums, target) {
     if (nums.length === 0) return [];
     let left = 0, right = nums.length - 1;
     while (left < right) {
-        let mid = Math.floor((left + right)/2);
         if (nums[left] + nums[right] === target) {
             return [].concat([nums[left], nums[right]]);
         }else if (nums[left] + nums[right] < target) {
